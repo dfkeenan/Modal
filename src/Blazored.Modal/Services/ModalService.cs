@@ -5,8 +5,21 @@ namespace Blazored.Modal.Services
 {
     public class ModalService : IModalService
     {
+        private readonly Type modalInstanceType;
+
         internal event Action<ModalReference> OnModalInstanceAdded;
         internal event Action<ModalReference, ModalResult> OnModalCloseRequested;
+
+        public ModalService()
+            :this(typeof(BlazoredModalInstance))
+        {
+
+        }
+
+        internal ModalService(Type modalInstanceType)
+        {
+            this.modalInstanceType = modalInstanceType;
+        }
 
         /// <summary>
         /// Shows the modal with the component type.
@@ -127,7 +140,7 @@ namespace Blazored.Modal.Services
             });
             var modalInstance = new RenderFragment(builder =>
             {
-                builder.OpenComponent<BlazoredModalInstance>(0);
+                builder.OpenComponent(0, modalInstanceType);
                 builder.AddAttribute(1, "Options", options);
                 builder.AddAttribute(2, "Title", title);
                 builder.AddAttribute(3, "Content", modalContent);

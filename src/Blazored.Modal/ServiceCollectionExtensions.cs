@@ -9,5 +9,11 @@ namespace Blazored.Modal
         {
             return services.AddScoped<IModalService, ModalService>();
         }
+
+        public static IServiceCollection AddBlazoredModal<TModalInstance>(this IServiceCollection services)
+            where TModalInstance : BlazoredModalInstance
+        {
+            return services.AddScoped<IModalService, ModalService>( x => new ModalService(typeof(TModalInstance)));
+        }
     }
 }

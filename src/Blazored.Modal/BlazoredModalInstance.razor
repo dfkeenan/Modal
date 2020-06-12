@@ -26,7 +26,7 @@
 </div>
 
 @code {
-    [CascadingParameter] private BlazoredModal Parent { get; set; }
+    [CascadingParameter] protected BlazoredModal Parent { get; set; }
     [CascadingParameter] private ModalOptions GlobalModalOptions { get; set; }
 
     [Parameter] public ModalOptions Options { get; set; }
@@ -34,10 +34,10 @@
     [Parameter] public RenderFragment Content { get; set; }
     [Parameter] public Guid Id { get; set; }
 
-    private string Position { get; set; }
+    protected string Position { get; set; }
     private string Class { get; set; }
-    private bool HideHeader { get; set; }
-    private bool HideCloseButton { get; set; }
+    protected bool HideHeader { get; set; }
+    protected bool HideCloseButton { get; set; }
     private bool DisableBackgroundCancel { get; set; }
 
     protected override void OnInitialized()
@@ -105,6 +105,11 @@
             position = ModalPosition.Center;
         }
 
+        return GetPositionClass(position);
+    }
+
+    protected virtual string GetPositionClass(ModalPosition position)
+    {
         switch (position)
         {
             case ModalPosition.Center:
@@ -166,7 +171,7 @@
         return false;
     }
 
-    private void HandleBackgroundClick()
+    protected void HandleBackgroundClick()
     {
         if (DisableBackgroundCancel) return;
 

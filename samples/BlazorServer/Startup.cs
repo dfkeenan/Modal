@@ -22,7 +22,8 @@ namespace BlazorServer
         {
             services.AddRazorPages();
             services.AddServerSideBlazor(o => o.DetailedErrors = true);
-            services.AddBlazoredModal();
+            //services.AddBlazoredModal();
+            services.AddBlazoredModal<BootstrapModalInstance>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
